@@ -199,3 +199,11 @@
 .card:target { outline: 2px solid #739c63; }
 .housing-area-filter { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; font-size: 13px; }
 .housing-area-filter[hidden] { display: none; }
+/* Message sheet */
+#message-sheet { width: min(560px, calc(100vw - 32px)); }
+.message-hint { margin: 4px 0 10px; color: var(--muted); font-size: 14px; }
+.message-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+#message-text { width: 100%; box-sizing: border-box; min-height: 260px; background: white; border: 1px solid #bccabb; border-radius: 7px; padding: 10px; font-size: 16px; line-height: 1.4; resize: vertical; }
+.message-actions { flex-wrap: wrap; justify-content: flex-start; margin-top: 12px; gap: 8px; }
+.message-actions [hidden] { display: none; }
+[data-theme="dark"] #message-text { background: #0f1a15; border-color: #35473d; color: inherit; }

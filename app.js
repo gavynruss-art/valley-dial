@@ -199,6 +199,7 @@ function renderCard(lead, mapNumber) {
    ${placeActions(lead)}
   </div>
   <div class="card-actions">${contact}
+   ${isStudio(lead)?'':'<button class="log" data-action="message" aria-label="Write a message to '+name+'">Message</button>'}
    <button class="log" data-action="log" aria-label="Log or edit ${name}">Log</button>
    <button class="icon-button" data-action="star" aria-pressed="${lead.saved}" aria-label="Shortlist ${name}">${icon('star')}</button>
   </div>
@@ -264,6 +265,7 @@ $('#cards').onclick=e=>{
  const l=leads.find(x=>x.id===b.closest('[data-id]').dataset.id);if(!l)return;
  if(b.dataset.action==='photos')showGallery(l,Number(b.dataset.photo));
  else if(b.dataset.action==='log')openEditor(l);
+ else if(b.dataset.action==='message')openMessage(l);
  else if(commit(leads.map(x=>x===l?{...x,saved:!x.saved}:x))){
   const row=[...document.querySelectorAll('[data-id]')].find(el=>el.dataset.id===l.id);
   (row?.querySelector('[data-action="star"]')||document.querySelector('[data-view][aria-current]')).focus();
@@ -298,6 +300,42 @@ $('#import').addEventListener('change',async e=>{
 });
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvent=e;});
 addEventListener('appinstalled',()=>{installEvent=null;toast('Valley Dial installed.');});
+// Message drafts: tailored to Gavyn's search (men's room, not a student, ~$500, month-to-month, Nov 25 move-in).
+const sourceName=url=>{const h=(()=>{try{return new URL(url).hostname}catch{return ''}})();return h.includes('ksl')?'KSL':h.includes('roomies')?'Roomies':h.includes('facebook')?'Facebook Marketplace':h.includes('craigslist')?'Craigslist':h.includes('managebuilding')?'your website':h.includes('rentler')?'Rentler':h.includes('spareroom')?'SpareRoom':h.includes('turbotenant')?'TurboTenant':'';};
+function messageFor(lead){
+ const review=reviewFor(lead)||{}, tier=tierOf(lead), text=[lead.name,lead.context,review.note].join(' ').toLowerCase();
+ const address=(lead.address||placeFor(lead).address||'').trim(), where=address?'your room at '+address:'your listing ('+lead.name+')', from=sourceName(lead.url);
+ const lines=['Hi! My name is Gavyn. I saw '+where+(from?' on '+from:'')+'. Is it still available for a move-in on Nov 25?'];
+ const about=["I'm a tattoo artist, not a student."];
+ if(!/\b(men|men's|male|males|guys?)\b/.test(text))about.push('Is the room open to a guy?');
+ if(/student|byu|contract|eligib|managebuilding/.test(text+' '+lead.url))about.push('Can non-students sign?');
+ lines.push(about.join(' '));
+ if(tier==='start')lines.push("I'm looking for month-to-month. Can you confirm that works?");
+ else if(tier==='fixed')lines.push(/takeover|lease sale|selling|transfer/.test(text)?"I'd prefer month-to-month. If I take over the lease, when does it end and what is the transfer process and fee?":/contract/.test(text)?"I'd prefer month-to-month. When does the contract end, and is a shorter term possible?":"I'd prefer month-to-month. Is that an option, or what's the shortest lease?");
+ else lines.push('How long is the lease? Month-to-month would be ideal.');
+ lines.push(lead.price?'What is the total each month with utilities and any fees, and how much is the deposit?':'What is the monthly rent, plus utilities and any fees, and the deposit?');
+ lines.push('Before a tour, could you do a quick FaceTime video so I can see the room and shared spaces?');
+ lines.push('Could you also tell me a little about the roommates? How many, what they do for work or school, and what the place is like day to day.');
+ lines.push('Thanks!');
+ return lines.join('\n\n');
+}
+const messageSheet=$('#message-sheet'); let messageLead=null;
+function openMessage(lead){
+ messageLead=lead;
+ const tel=(lead.phone||'').replace(/[^\d+]/g,''), url=safeURL(lead.url);
+ $('#message-title').textContent='Message · '+lead.name;
+ $('#message-text').value=messageFor(lead);
+ $('#message-text-it').hidden=!tel;
+ $('#message-open').hidden=!url;
+ $('#message-open').textContent=tel?'Copy & open listing':'Copy & open listing to send';
+ $('#message-hint').textContent=tel?'Edit anything, then text it.':'This lister has no phone number. Copy the message, then paste it into the listing’s chat on '+(sourceName(lead.url)||'their site')+'.';
+ messageSheet.showModal();
+}
+async function copyMessage(){const v=$('#message-text').value;try{await navigator.clipboard.writeText(v);return true;}catch{$('#message-text').select();return false;}}
+$('#message-close').onclick=()=>messageSheet.close();
+$('#message-copy').onclick=async()=>toast(await copyMessage()?'Message copied.':'Message selected. Copy it from the box.');
+$('#message-open').onclick=async()=>{const ok=await copyMessage();const url=safeURL(messageLead?.url);if(url)window.open(url,'_blank','noopener');toast(ok?'Message copied. Paste it into the listing chat.':'Copy the message from the box, then paste it in the listing chat.');};
+$('#message-text-it').onclick=()=>{const tel=(messageLead?.phone||'').replace(/[^\d+]/g,'');if(!tel)return;const sep=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)?'&':'?';location.href='sms:'+tel+sep+'body='+encodeURIComponent($('#message-text').value);};
 $('#install').onclick=async()=>{if(installEvent){const prompt=installEvent;installEvent=null;await prompt.prompt();}else $('#install-help').showModal();};
 $('#close-help').onclick=()=>$('#install-help').close();
 if(matchMedia('(display-mode: standalone)').matches || navigator.standalone)$('#install').hidden=true;
