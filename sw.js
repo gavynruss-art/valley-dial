@@ -1,5 +1,5 @@
 'use strict';
-const cacheName='valley-dial-shell-v10';
+const cacheName='valley-dial-shell-v11';
 const shell=['./','./index.html','./style.css','./theme.js','./catalog.js','./places.js','./review.js','./app.js','./housing-map.js','./housing-points.js','./vendor/leaflet.js','./vendor/leaflet.css','./terrain.svg','./icon.svg','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable.png'];
 const urls=new Set(shell.map(path=>new URL(path,self.location.href).href));
 self.addEventListener('install',event=>event.waitUntil((async()=>{

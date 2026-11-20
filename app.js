@@ -282,7 +282,7 @@ form.onsubmit=e=>{
 $('#remove').onclick=()=>{if(current&&window.confirm('Delete this lead and its notes?')&&commit(leads.filter(l=>l.id!==current))){editor.close();toast('Lead deleted.');}};
 $('#copy').onclick=async()=>{const phrase=$('#script').textContent.trim().slice(1,-1);try{await navigator.clipboard.writeText(phrase);toast('Opening line copied.');}catch{const range=document.createRange();range.selectNodeContents($('#script'));const selection=getSelection();selection.removeAllRanges();selection.addRange(range);toast('Opening line selected for copying.');}};
 $('#export').onclick=()=>{
- const href=URL.createObjectURL(new Blob([JSON.stringify({version:1,leads},null,2)],{type:'application/json'}));
+ const href=URL.createObjectURL(new Blob([JSON.stringify({version:1,catalogRevision,leads},null,2)],{type:'application/json'}));
  const a=document.createElement('a');a.href=href;a.download='valley-dial-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(href),1000);
 };
 $('#import').addEventListener('change',async e=>{
@@ -290,7 +290,9 @@ $('#import').addEventListener('change',async e=>{
  try{
   if(file.size>8_000_000)throw Error('Backup too large');
   const data=JSON.parse(await file.text());if(data.version!==1)throw Error('Unsupported backup');
-  const next=validate(data.leads).map(applyReview);
+  // Backups made before this catalog revision keep the leads added since then.
+  const restored=validate(data.leads), backupRevision=Number.isInteger(data.catalogRevision)?data.catalogRevision:3, restoredIds=new Set(restored.map(l=>l.id));
+  const next=[...restored,...catalog.filter(l=>!restoredIds.has(l.id)&&(l.rev||0)>backupRevision).map(defaults)].map(applyReview);
   if(window.confirm('Replace the current '+leads.length+' leads with '+next.length+' from this backup?')&&commit(next))toast('Backup restored.');
  }catch{toast('That file is not a valid Valley Dial backup.');}
 });
