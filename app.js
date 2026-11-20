@@ -215,10 +215,10 @@ function render(){
  $('#unavailable-filter').hidden = view !== 'all' || unavailableCount === 0;
  $('#unavailable-label').textContent = 'Show hidden ('+unavailableCount+')';
  const pool = view === 'all' && !$('#show-unavailable').checked ? areaLeads.filter(available) : areaLeads;
- $('#script').textContent=studios?'“Hi! I’m Gavyn, a fine-line and realism artist moving to Utah County. Are you open to guest artists or booth renters around November 25?”':'“Hi! Is the room available around November 25? I’m looking for $600 or less all-in. What’s included, and what lease terms are you offering?”';
+ $('#script').textContent=studios?'“Hi! I’m Gavyn, a fine-line and realism artist moving to Utah County. Are you open to guest artists or booth renters around November 25?”':'“Hey, is the room still available? I’m looking to move in around the 25th. Could we do a quick FaceTime so I can see the place? What do utilities run, and how long is the lease?”';
  $('#tip1').textContent=studios?'Ask about guest dates or an open chair.':'Ask for the earliest move-in date.';
  $('#tip2').textContent=studios?'Ask about day rates, booth rent, or splits.':'Get rent, utilities, and fees.';
- $('#tip3').textContent=studios?'Confirm what the shop needs from guest artists.':'Ask about deposits and lease terms.';
+ $('#tip3').textContent=studios?'Confirm what the shop needs from guest artists.':'Ask about the deposit and lease length.';
  $('#stats').innerHTML=[['home',pool.length,studios?'Studio leads':'Leads'],['phone',pool.filter(l=>l.status==='To call').length,'To contact'],['clock',pool.filter(isFollow).length,'Follow-ups']].map(([i,n,s])=>'<div class="stat"><div class="stat-icon">'+icon(i)+'</div><div><strong>'+n+'</strong><small>'+s+'</small></div></div>').join('');
  const q=$('#search').value.trim().toLowerCase(), c=$('#city').value, t=$('#type').value, priority=$('#priority').value;
  const shown=pool.filter(l=>(view==='all'||(view==='saved'?l.saved:isFollow(l)))&&(!c||c===l.city)&&(!t||t===l.type)&&(!priority||priority===tierOf(l))&&(!q||[l.name,l.city,l.address,l.notes,l.phone,l.context,l.price].some(v=>(v??'').toLowerCase().includes(q))));
@@ -300,7 +300,7 @@ $('#import').addEventListener('change',async e=>{
 });
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvent=e;});
 addEventListener('appinstalled',()=>{installEvent=null;toast('Valley Dial installed.');});
-// Message drafts: tailored to Gavyn's search (men's room, not a student, ~$500, month-to-month, Nov 25 move-in).
+// Message drafts: casual texts. Main asks are a FaceTime walkthrough and the roommates. No job or budget; month-to-month is a preference, not a requirement.
 const sourceName=url=>{const h=(()=>{try{return new URL(url).hostname}catch{return ''}})();return h.includes('ksl')?'KSL':h.includes('roomies')?'Roomies':h.includes('facebook')?'Facebook Marketplace':h.includes('craigslist')?'Craigslist':h.includes('managebuilding')?'your website':h.includes('rentler')?'Rentler':h.includes('spareroom')?'SpareRoom':h.includes('turbotenant')?'TurboTenant':'';};
 // Voice: casual text, like Gavyn writes (opens with "Hey", short, no exclamation points).
 const womenOnly=lead=>{const t=[lead.name,lead.context,reviewFor(lead)?.note].join(' ').toLowerCase();return /\b(women|women's|female|females|girls?|ladies)\b/.test(t)&&!/\b(men|men's|male|males|guys?)\b/.test(t.replace(/\bfe?males?\b|\bwomen'?s?\b/g,''));};
@@ -311,7 +311,7 @@ function messageFor(lead){
  lines.push('Would you be down to do a quick FaceTime so I can see the room and the rest of the place? Also curious what the roommates are like.');
  const asks=[];
  if(!womenOnly(lead)&&!/\b(men|men's|male|males|guys?)\b/.test(text))asks.push('Is it open to guys?');
- if(/student|byu|contract|eligib/.test(text)||/managebuilding/.test(lead.url||''))asks.push("I'm not a student, is that ok?");
+ if(/student|byu[- ]approved|byu contract|contracted housing|\bcontract\b|eligib/.test(text)||/managebuilding/.test(lead.url||''))asks.push("I'm not a student, is that ok?");
  if(/takeover|lease sale|selling|transfer/.test(text))asks.push('When does the lease end?');
  else if(tier!=='start')asks.push("How long is the lease? I'm just not trying to get locked into anything too long.");
  const cost=lead.price?'what do utilities usually run?':"what's rent with utilities?";
