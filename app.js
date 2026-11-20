@@ -314,7 +314,7 @@ function messageFor(lead){
  if(!womenOnly(lead)&&!/\b(men|men's|male|males|guys?)\b/.test(text))about.push('Is the room open to a guy?');
  if(/student|byu|contract|eligib/.test(text)||/managebuilding/.test(lead.url||''))about.push('Can non-students sign?');
  lines.push(about.join(' '));
- if(tier==='start')lines.push("I'm looking for month-to-month, can you confirm that works?");
+ if(tier==='start')lines.push("I'm looking for month-to-month. Can you confirm that works?");
  else if(tier==='fixed')lines.push(/takeover|lease sale|selling|transfer/.test(text)?"I'd prefer month-to-month. If I take over the lease, when does it end and what's the transfer fee?":/contract/.test(text)?"I'd prefer month-to-month. When does the contract end, and is a shorter term possible?":"I'd prefer month-to-month. Is that an option, or what's the shortest lease?");
  else lines.push("How long is the lease? Month-to-month would be ideal.");
  lines.push('Could you also tell me a little bit about the roommates, as well as '+(lead.price?'the total each month with utilities and the deposit':'the rent with utilities and the deposit')+'? Thanks.');
