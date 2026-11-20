@@ -311,7 +311,7 @@ function messageFor(lead){
  lines.push('Would you be down to do a quick FaceTime so I can see the room and the rest of the place? Also curious what the roommates are like.');
  const asks=[];
  if(!womenOnly(lead)&&!/\b(men|men's|male|males|guys?)\b/.test(text))asks.push('Is it open to guys?');
- if(/student|byu[- ]approved|byu contract|contracted housing|\bcontract\b|eligib/.test(text)||/managebuilding/.test(lead.url||''))asks.push("I'm not a student, is that ok?");
+ if(/student|byu[- ]approved|byu contract|contract(ed)? housing|eligib/.test(text)||(/\bcontract\b/.test(text)&&!/no contract|month[- ]to[- ]month/.test(text))||/managebuilding/.test(lead.url||''))asks.push("I'm not a student, is that ok?");
  if(/takeover|lease sale|selling|transfer/.test(text))asks.push('When does the lease end?');
  else if(tier!=='start')asks.push("How long is the lease? I'm just not trying to get locked into anything too long.");
  const cost=lead.price?'what do utilities usually run?':"what's rent with utilities?";
