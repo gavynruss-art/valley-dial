@@ -302,22 +302,22 @@ addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvent=e;});
 addEventListener('appinstalled',()=>{installEvent=null;toast('Valley Dial installed.');});
 // Message drafts: tailored to Gavyn's search (men's room, not a student, ~$500, month-to-month, Nov 25 move-in).
 const sourceName=url=>{const h=(()=>{try{return new URL(url).hostname}catch{return ''}})();return h.includes('ksl')?'KSL':h.includes('roomies')?'Roomies':h.includes('facebook')?'Facebook Marketplace':h.includes('craigslist')?'Craigslist':h.includes('managebuilding')?'your website':h.includes('rentler')?'Rentler':h.includes('spareroom')?'SpareRoom':h.includes('turbotenant')?'TurboTenant':'';};
-// Voice: matched to Gavyn's Wispr Flow dictations (opens with "Hey", plain and casual, "a little bit", "as well as", no exclamation points).
-const listedPrice=lead=>{const m=String(lead.price||'').match(/\$\s?([\d,]+)/);return m?Number(m[1].replace(/,/g,'')):null;};
+// Voice: casual text, like Gavyn writes (opens with "Hey", short, no exclamation points).
 const womenOnly=lead=>{const t=[lead.name,lead.context,reviewFor(lead)?.note].join(' ').toLowerCase();return /\b(women|women's|female|females|girls?|ladies)\b/.test(t)&&!/\b(men|men's|male|males|guys?)\b/.test(t.replace(/\bfe?males?\b|\bwomen'?s?\b/g,''));};
 function messageFor(lead){
  const review=reviewFor(lead)||{}, tier=tierOf(lead), text=[lead.name,lead.context,review.note].join(' ').toLowerCase();
- const address=(lead.address||placeFor(lead).address||'').trim(), from=sourceName(lead.url);
- const lines=['Hey, I\'m Gavyn. I saw '+(address?'your room at '+address:'your listing for '+lead.name)+(from?' on '+from:'')+'. Is it still open for a move-in on Nov 25?'];
- lines.push("Before a tour, could you do a quick FaceTime walkthrough of the room and shared spaces? I'd really like to see it first.");
- const about=["A little about me: I'm a tattoo artist, not a student, and my budget is around $500 a month."];
- if(!womenOnly(lead)&&!/\b(men|men's|male|males|guys?)\b/.test(text))about.push('Is the room open to a guy?');
- if(/student|byu|contract|eligib/.test(text)||/managebuilding/.test(lead.url||''))about.push('Can non-students sign?');
- lines.push(about.join(' '));
- if(tier==='start')lines.push("I'm looking for month-to-month. Can you confirm that works?");
- else if(tier==='fixed')lines.push(/takeover|lease sale|selling|transfer/.test(text)?"I'd prefer month-to-month. If I take over the lease, when does it end and what's the transfer fee?":/contract/.test(text)?"I'd prefer month-to-month. When does the contract end, and is a shorter term possible?":"I'd prefer month-to-month. Is that an option, or what's the shortest lease?");
- else lines.push("How long is the lease? Month-to-month would be ideal.");
- lines.push('Could you also tell me a little bit about the roommates, as well as '+(lead.price?'the total each month with utilities and the deposit':'the rent with utilities and the deposit')+'? Thanks.');
+ const address=(lead.address||placeFor(lead).address||'').trim();
+ const lines=['Hey, is '+(address?'your room at '+address:'the room you posted')+" still available? I'm looking to move in around the 25th."];
+ lines.push('Would you be down to do a quick FaceTime so I can see the room and the rest of the place? Also curious what the roommates are like.');
+ const asks=[];
+ if(!womenOnly(lead)&&!/\b(men|men's|male|males|guys?)\b/.test(text))asks.push('Is it open to guys?');
+ if(/student|byu|contract|eligib/.test(text)||/managebuilding/.test(lead.url||''))asks.push("I'm not a student, is that ok?");
+ if(/takeover|lease sale|selling|transfer/.test(text))asks.push('When does the lease end?');
+ else if(tier!=='start')asks.push("How long is the lease? I'm just not trying to get locked into anything too long.");
+ const cost=lead.price?'what do utilities usually run?':"what's rent with utilities?";
+ asks.push(asks.length?'And '+cost:cost[0].toUpperCase()+cost.slice(1));
+ lines.push(asks.join(' '));
+ lines.push('Thanks, Gavyn');
  return lines.join('\n\n');
 }
 const messageSheet=$('#message-sheet'); let messageLead=null;
@@ -329,9 +329,8 @@ function openMessage(lead){
  $('#message-text-it').hidden=!tel;
  $('#message-open').hidden=!url;
  $('#message-open').textContent=tel?'Copy & open listing':'Copy & open listing to send';
- const warn=[]; const lp=listedPrice(lead);
+ const warn=[];
  if(womenOnly(lead))warn.push('Heads up: this listing looks women-only.');
- if(lp&&lp>600)warn.push('Listed at $'+lp+', above your ~$500 budget.');
  $('#message-hint').textContent=[...warn, tel?'Edit anything, then text it.':'No phone number here. Copy the message, then paste it into the listing chat on '+(sourceName(lead.url)||'their site')+'.'].join(' ');
  $('#message-hint').classList.toggle('warn',warn.length>0);
  messageSheet.showModal();
