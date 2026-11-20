@@ -207,3 +207,5 @@
 .message-actions { flex-wrap: wrap; justify-content: flex-start; margin-top: 12px; gap: 8px; }
 .message-actions [hidden] { display: none; }
 [data-theme="dark"] #message-text { background: #0f1a15; border-color: #35473d; color: inherit; }
+.message-hint.warn { color: #8e542b; font-weight: 600; }
+[data-theme="dark"] .message-hint.warn { color: #ffd39d; }
