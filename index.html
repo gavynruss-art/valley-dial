@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101c17"><meta name="description" content="A pocket call list for housing and tattoo studio leads around Orem and Provo.">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png">
+<script src="./theme.js"></script>
+<link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css">
+<title>Valley Dial · Housing & Tattoo Studio Calls</title>
+<script src="./catalog.js" defer></script>
+<script src="./places.js" defer></script>
+<script src="./review.js" defer></script>
+<link rel="stylesheet" href="./vendor/leaflet.css">
+<script src="./vendor/leaflet.js" defer></script>
+<script src="./housing-points.js" defer></script>
+<script src="./housing-map.js" defer></script>
+<script src="./app.js" defer></script>
+</head>
+<body>
+<aside class="rail">
+<a class="brand" href="./"><img src="./icon.svg" alt=""><span>Valley Dial<small>UTAH VALLEY FIELD GUIDE</small></span></a>
+<div class="nav-label">WORKSPACE</div>
+<nav aria-label="Workspace"><button data-view="all" aria-current="page" data-icon="grid">All leads</button><button data-view="follow" data-icon="clock">Follow-ups</button><button data-view="saved" data-icon="star">Shortlist</button></nav>
+<div class="rail-end"><button id="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="true" data-icon="moon"><span>Dark mode</span></button><button id="install" data-icon="download">Install app</button><div class="local"><i></i> Stored on this device</div></div>
+</aside>
+<main>
+<header class="hero">
+<div class="hero-content"><div class="eyebrow"><span class="signal"></span> UTAH VALLEY <span class="sep">/</span> LEHI TO SPANISH FORK</div>
+<h1>Find your<br>next place.</h1>
+<p>Rooms to live in. Shops to work from. One list for the calls between.</p></div>
+<div class="hero-index" aria-hidden="true">WASATCH FRONT</div>
+</header>
+<section class="stats" aria-label="Lead totals" id="stats"></section>
+<div class="layout">
+<section class="leads" aria-labelledby="section-title">
+<div class="section-head"><div><h2 id="section-title">All leads</h2></div><button class="primary" id="add" data-icon="plus">Add lead</button></div>
+<div class="segments" aria-label="Lead category"><button data-category="housing" aria-pressed="true">Housing</button><button data-category="studios" aria-pressed="false">Tattoo studios</button><button data-category="all" aria-pressed="false">Both</button></div>
+<label id="housing-area-filter" class="housing-area-filter"><input id="focus-housing-area" type="checkbox" checked> Focus housing near UVU, Orem and Vineyard</label>
+<div class="filters">
+<label class="search"><span data-symbol="search"></span><input type="search" id="search" placeholder="Search leads…" aria-label="Search leads"></label>
+<select id="city" aria-label="Filter by city"><option value="">All cities</option><option>Orem</option><option>Provo</option><option>Vineyard</option><option>Lindon</option><option>Pleasant Grove</option><option>American Fork</option><option>Lehi</option><option>Saratoga Springs</option><option>Springville</option><option>Mapleton</option><option>Spanish Fork</option><option>Other</option></select>
+<select id="type" aria-label="Filter by type"><option value="">All types</option><option>Studio</option><option>1 bedroom</option><option>Room</option><option>Tattoo shop</option><option>Booth / suite</option><option>Other</option></select>
+</div>
+<div class="list-tools"><label>Priority <select id="priority"><option value="">All priorities</option><option value="start">Start here / month-to-month</option><option value="check">Worth checking / lease unclear</option><option value="fixed">Fixed-term / takeover</option><option value="backup">Backups</option></select></label><label id="unavailable-filter" class="unavailable-filter" hidden><input id="show-unavailable" type="checkbox"> <span id="unavailable-label"></span></label></div>
+<div class="result-line"><span id="results" aria-live="polite"></span></div>
+<details id="housing-map-panel" class="housing-map-panel">
+<summary>Housing map<span id="housing-map-count"></span></summary>
+<p id="housing-map-message" class="housing-map-message"></p>
+<div id="housing-map" aria-label="Map of housing leads"></div>
+</details>
+<div id="cards" class="cards"></div>
+</section>
+<aside class="guide" aria-labelledby="guide-title">
+<div class="guide-icon" data-symbol="phone"></div><div class="kicker">ON THE PHONE</div><h2 id="guide-title">The call sheet</h2>
+<blockquote id="script">“Hi! I’m looking for a studio. Do you have any openings around my move-in date? What would the full monthly cost be?”</blockquote>
+<ol><li id="tip1">Ask for the earliest move-in date.</li><li id="tip2">Get rent, utilities, and fees.</li><li id="tip3">Ask about deposits and lease terms.</li><li>Get a name and set a follow-up.</li></ol>
+<button id="copy" class="outline" data-icon="copy">Copy opening line</button>
+<div class="guide-foot"><button id="export" class="link-button" data-icon="download">Export backup</button><label class="link-button import-label" for="import">Import backup</label><input type="file" id="import" accept=".json,application/json" hidden></div>
+</aside>
+</div>
+<footer>VALLEY DIAL <span>Sources reviewed Nov 20, 2026. Confirm prices, openings, and terms directly.</span></footer>
+</main>
+<dialog id="editor"><form id="lead-form">
+<div class="dialog-top"><div><div class="kicker">FIELD NOTES</div><h2 id="form-title">Add a lead</h2></div><button type="button" class="icon-button" id="close" aria-label="Close" data-icon="close"></button></div>
+<div class="form-grid">
+<label class="wide">Property name<input name="name" required maxlength="120" autofocus></label>
+<label>City<select name="city"><option>Orem</option><option>Provo</option><option>Vineyard</option><option>Lindon</option><option>Pleasant Grove</option><option>American Fork</option><option>Lehi</option><option>Saratoga Springs</option><option>Springville</option><option>Mapleton</option><option>Spanish Fork</option><option>Other</option></select></label>
+<label>Type<select name="type"><option>Studio</option><option>1 bedroom</option><option>Room</option><option>Tattoo shop</option><option>Booth / suite</option><option>Other</option></select></label>
+<label class="wide">Street address<input name="address" maxlength="140"></label>
+<label>Contact phone<input name="phone" type="tel" maxlength="32"></label><label>Contact method<select name="method"><option value="call">Call</option><option value="text">Text</option></select></label>
+<label>Quoted monthly cost ($)<input name="rent" type="number" min="0" max="99999" step=".01"></label>
+<label class="wide">Listing or source URL<input name="url" type="url" pattern="https?://.+" placeholder="https://" maxlength="500"></label>
+<label class="wide">Photo URL (optional)<input name="photo" type="url" pattern="https?://.+" placeholder="https://" maxlength="1000"></label>
+<label>Status<select name="status"><option>To call</option><option>Follow up</option><option>Tour booked</option><option>Passed</option></select></label>
+<label>Follow-up date<input name="date" type="date"></label>
+<label class="wide">Call notes<textarea name="notes" rows="3" maxlength="3000" placeholder="Who did you speak to? Rent, fees, availability…"></textarea></label>
+</div>
+<div class="dialog-actions"><button type="button" id="remove" class="danger">Delete lead</button><button class="primary" type="submit">Save lead</button></div>
+</form></dialog>
+<dialog id="place-gallery" aria-labelledby="gallery-title">
+<div class="dialog-top"><div><h2 id="gallery-title"></h2><p class="detail" id="gallery-location"></p></div><button type="button" class="icon-button" id="close-gallery" aria-label="Close photos" data-icon="close" autofocus></button></div>
+<div id="gallery-photos" class="gallery-photos"></div>
+<p class="detail" id="gallery-note"></p>
+<div id="gallery-links" class="gallery-links"></div>
+</dialog>
+<dialog id="install-help"><div class="dialog-top"><h2>Install Valley Dial</h2><button class="icon-button" aria-label="Close" data-icon="close" id="close-help"></button></div><p>On iPhone, open Valley Dial in Safari, tap Share, then choose <strong>Add to Home Screen</strong>. In Chrome or Edge, look for the install option in the address bar or browser menu.</p><p>Leads are saved in this browser. Export a backup before switching devices or clearing browser data.</p></dialog>
+<div id="toast" role="status"></div>
+</body>
+</html>
