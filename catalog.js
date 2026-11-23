@@ -1259,5 +1259,44 @@ const catalog = [
     "context": "Men · brand new house · 12 month lease · move-in date not shown, confirm Nov 25",
     "tier": "fixed",
     "rev": 4
+  },
+  {
+    "type": "Room",
+    "id": "roomies-754982",
+    "name": "Vineyard men’s condo room",
+    "city": "Vineyard",
+    "price": "$650 listed",
+    "phone": "",
+    "url": "https://www.roomies.com/rooms/754982",
+    "context": "Men · furnished · own bath · pool and gym · 1-48 month stays · available now · 2 roommates",
+    "tier": "start",
+    "rev": 5
+  },
+  {
+    "type": "Room",
+    "id": "ksl-1004680255",
+    "name": "1763 Willowbrook Dr room",
+    "city": "Provo",
+    "address": "1763 Willowbrook Dr",
+    "price": "$650-$685 listed, utilities included",
+    "phone": "801-404-6212",
+    "method": "text",
+    "url": "https://homes.ksl.com/rent/detail/1763-willowbrook-dr-Provo-UT-84604/1004680255",
+    "context": "Two rooms · shared kitchen and bath · 12 month lease · available now",
+    "tier": "fixed",
+    "rev": 5
+  },
+  {
+    "type": "Room",
+    "id": "ksl-1004680107",
+    "name": "1983 N 700 W men’s rooms",
+    "city": "Provo",
+    "address": "1983 N 700 W",
+    "price": "$670 listed, all utilities included",
+    "phone": "",
+    "url": "https://homes.ksl.com/rent/detail/1983-700-West-Provo-UT-84604/1004680107",
+    "context": "Men only · available Dec 2 (one room Dec 16) · no credit check · $500 deposit",
+    "tier": "backup",
+    "rev": 5
   }
 ];

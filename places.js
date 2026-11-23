@@ -1248,5 +1248,36 @@ const places = {
       ]
     ],
     "areaOnly": true
+  },
+  "roomies-754982": {
+    "address": "",
+    "source": "https://www.roomies.com/rooms/754982",
+    "photos": [
+      [
+        "Listing photo",
+        "https://www.roomies.com/og-image/67e8b981139988f0e96b91a322faa0d1.jpeg"
+      ]
+    ],
+    "areaOnly": true
+  },
+  "ksl-1004680255": {
+    "address": "1763 Willowbrook Dr",
+    "source": "https://homes.ksl.com/rent/detail/1763-willowbrook-dr-Provo-UT-84604/1004680255",
+    "photos": [
+      [
+        "Listing photo",
+        "https://img.ksl.com/mx/mplace-rent.ksl.com/m2253060-l1004680255-1033525471.jpg"
+      ]
+    ]
+  },
+  "ksl-1004680107": {
+    "address": "1983 N 700 W",
+    "source": "https://homes.ksl.com/rent/detail/1983-700-West-Provo-UT-84604/1004680107",
+    "photos": [
+      [
+        "Listing photo",
+        "https://img.ksl.com/mx/mplace-rent.ksl.com/m5207244-l1004680107-1033522305.jpg"
+      ]
+    ]
   }
 };

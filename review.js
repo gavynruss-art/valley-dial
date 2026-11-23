@@ -1,5 +1,5 @@
 'use strict';
-// Public listings and operator sources reviewed Nov 20, 2026.
+// Public listings and operator sources reviewed Nov 20, 2026; links rechecked Nov 23, 2026.
 const leadReview = {
   "indian-hills": {
     "status": "listed",
@@ -22,7 +22,7 @@ const leadReview = {
   },
   "foxwood": {
     "status": "listed",
-    "note": "Legend lists one private room and Nov 24 availability. Confirm the private spot. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "Legend lists one private room and Nov 24 availability. Confirm the private spot. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/50721",
     "price": "$531 with listed fees",
     "tier": "fixed"
@@ -74,7 +74,7 @@ const leadReview = {
   },
   "riverside-33": {
     "status": "listed",
-    "note": "Legend advertises a $475 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "Legend advertises a $475 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/58994",
     "price": "$543 in fixed monthly charges + gas and electricity",
     "tier": "fixed"
@@ -86,7 +86,7 @@ const leadReview = {
   },
   "silver-1987": {
     "status": "listed",
-    "note": "Legend now lists this room with Nov 24 availability. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "The Craigslist post was deleted, but Legend still lists this room with Nov 24 availability. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/89663",
     "url": "https://legendrealestate.managebuilding.com/Resident/public/rentals/89663",
     "phone": "801-434-8840",
@@ -100,21 +100,21 @@ const leadReview = {
     "price": "$483 in fixed monthly charges + electricity"
   },
   "presidio": {
-    "status": "listed",
-    "note": "Legend advertises a private room at $490, with availability listed Nov 24.",
+    "status": "unavailable",
+    "note": "The listing now redirects to Legend’s general rental inventory. Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/71452",
     "price": "$538 in fixed monthly charges + gas and electricity"
   },
   "old-mill-302": {
     "status": "listed",
-    "note": "Legend advertises a $480 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "Legend advertises a $480 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/90245",
     "price": "$528 in fixed monthly charges + gas, electricity and internet",
     "tier": "fixed"
   },
   "old-mill-116": {
     "status": "listed",
-    "note": "Legend advertises a $480 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "Legend advertises a $480 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/81815",
     "price": "$528 in fixed monthly charges + gas, electricity and internet",
     "tier": "fixed"
@@ -150,7 +150,7 @@ const leadReview = {
   },
   "old-mill-205": {
     "status": "listed",
-    "note": "Legend advertises a $590 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "Legend advertises a $590 private room, with availability listed Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/89149",
     "price": "$638 in fixed monthly charges + gas, electricity and internet",
     "tier": "fixed"
@@ -188,8 +188,8 @@ const leadReview = {
     "source": "https://www.spareroom.com/rooms-for-rent/ut/utah_county/lehi/103016007"
   },
   "saratoga-hatch": {
-    "status": "listed",
-    "note": "The landlord’s TurboTenant page is accepting applications at $550. Ask if the room is still open.",
+    "status": "unavailable",
+    "note": "The Craigslist post was deleted and the TurboTenant page is blank. Checked Nov 23, 2026.",
     "source": "https://rental.turbotenant.com/p/1138-e-hatch-row-saratoga-springs-ut/98037581-8541-47f5-a676-9e72c5d8a5d2",
     "price": "$550 listed with utilities",
     "url": "https://rental.turbotenant.com/p/1138-e-hatch-row-saratoga-springs-ut/98037581-8541-47f5-a676-9e72c5d8a5d2",
@@ -463,31 +463,31 @@ const leadReview = {
   },
   "ksl-columbia-1816": {
     "status": "listed",
-    "note": "KSL lists it available now with a 6-12 month lease. Men's room. Checked Nov 20, 2026.",
+    "note": "KSL lists it available now with a 6-12 month lease. Men's room. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/1816-Columbia-Lane-Orem-UT-84097/1004678098",
     "tier": "fixed"
   },
   "ksl-center-430": {
     "status": "listed",
-    "note": "KSL and Roomies both list it. The owner offers month-to-month. Only the shared men's room is open; private rooms are taken. Checked Nov 20, 2026.",
+    "note": "KSL and Roomies (roomies.com/rooms/618678) both list it. The owner offers month-to-month. Only the shared men's room (master) is open; private rooms are taken. KSL says about $100-120 utilities on top; Roomies says bills included, so ask. $400 deposit and a background check on Roomies. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/430-Center-Street-Orem-UT-84097/1004629962",
     "tier": "start"
   },
   "ksl-995w-906": {
     "status": "listed",
-    "note": "KSL lists it available now with a 6-12 month lease. Gender not stated. Checked Nov 20, 2026.",
+    "note": "KSL lists it available now with a 6-12 month lease. Gender not stated. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/1030-North-995-West-Apt-906-Orem-UT-84057/1004677134",
     "tier": "fixed"
   },
   "ksl-vineyard-348": {
     "status": "listed",
-    "note": "KSL lists a men's private room available now with 4-36 month terms. Same owner also lists it on Roomies and Facebook. Checked Nov 20, 2026.",
+    "note": "KSL lists a men's private room available now with 4-36 month terms. Same owner also lists it on Roomies and Facebook. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/348-West-410-North-Vineyard-UT-84059/1004646258",
     "tier": "fixed"
   },
   "ksl-380w-1451": {
     "status": "listed",
-    "note": "KSL lists two men's rooms available now on a 12-month lease. Checked Nov 20, 2026.",
+    "note": "KSL lists two men's rooms available now on a 12-month lease. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/1451-N-380-W.-Provo-UT-84064/1004674199",
     "tier": "fixed"
   },
@@ -498,49 +498,49 @@ const leadReview = {
   },
   "ksl-pg-1135": {
     "status": "listed",
-    "note": "KSL lists it available now, month-to-month. Gender not stated. Checked Nov 20, 2026.",
+    "note": "KSL lists it available now, month-to-month. Gender not stated. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/1135-North-100-East-Pleasant-Grove-UT-84062/1004617921",
     "tier": "start"
   },
   "ksl-af-379": {
     "status": "listed",
-    "note": "KSL lists rooms available now on a 12-36 month lease. Checked Nov 20, 2026.",
+    "note": "KSL lists rooms available now on a 12-36 month lease. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/379-S-960-W-American-Fork-UT-84003/1004679351",
     "tier": "fixed"
   },
   "ksl-af-368": {
-    "status": "listed",
-    "note": "KSL lists it available now, month-to-month. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "KSL says this listing is no longer available. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/368-900-West-American-Fork-UT-84003/1004678878",
     "tier": "start"
   },
   "ksl-af-449": {
     "status": "listed",
-    "note": "KSL lists it available now on a 6-month contract. Gender not stated. Checked Nov 20, 2026.",
+    "note": "KSL lists it available now on a 6-month contract. Gender not stated. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/449-Willow-Leaf-Road-American-Fork-UT-84003/1004677871",
     "tier": "fixed"
   },
   "ksl-af-577": {
     "status": "listed",
-    "note": "KSL lists rooms available now. Current roommates are men. Checked Nov 20, 2026.",
+    "note": "KSL lists rooms available now. Current roommates are men. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/577-900-West-American-Fork-UT-84003/1004665175",
     "tier": "fixed"
   },
   "ksl-af-868": {
-    "status": "listed",
-    "note": "KSL lists men's rooms available now and says month-to-month contracts are available. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "KSL says this listing is no longer available. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/868-W-560-S-American-Fork-UT-84003/1004605488",
     "tier": "start"
   },
   "legend-windsor-120": {
     "status": "listed",
-    "note": "Legend lists the private room available Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "Legend lists the private room available Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/80871",
     "tier": "fixed"
   },
   "legend-riverside-11": {
     "status": "listed",
-    "note": "Legend lists the private room available Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 20, 2026.",
+    "note": "Legend lists the private room available Nov 24. Contract text reads \"Now - Aug 13, 2027\". Checked Nov 23, 2026.",
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/53208",
     "tier": "fixed"
   },
@@ -555,20 +555,20 @@ const leadReview = {
     "source": "https://legendrealestate.managebuilding.com/Resident/public/rentals/47830"
   },
   "rentler-state-1675": {
-    "status": "listed",
-    "note": "Rentler lists the furnished studio available now. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "The Rentler link now redirects to the general Orem search page. Checked Nov 23, 2026.",
     "source": "https://www.rentler.com/places-for-rent/ut/orem/1675-s-state-st/13659984",
     "tier": "check"
   },
   "roomies-1048408": {
     "status": "listed",
-    "note": "Roomies lists it available now. Gender not stated. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now. Gender not stated. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1048408",
     "tier": "fixed"
   },
   "roomies-686248": {
     "status": "listed",
-    "note": "Roomies lists it available now. Gender not stated. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now. Gender not stated. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/686248",
     "tier": "fixed"
   },
@@ -579,43 +579,44 @@ const leadReview = {
   },
   "roomies-1082099": {
     "status": "listed",
-    "note": "Roomies lists it available now for men. Checked Nov 20, 2026.",
+    "note": "This is Parker’s listing. Roomies shows it as a shared furnished room at $500 with a 12 month stay; ask the private rate. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1082099",
-    "tier": "fixed"
+    "tier": "fixed",
+    "ask": "Is the $500 for a private room or shared?"
   },
   "roomies-1001487": {
     "status": "listed",
-    "note": "Roomies lists it available now, month-to-month, for men. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now, month-to-month, for men. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1001487",
     "tier": "start"
   },
   "roomies-569985": {
     "status": "listed",
-    "note": "Roomies lists it available now. Few photos so far. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now. Few photos so far. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/569985",
     "tier": "check"
   },
   "roomies-1067567": {
-    "status": "listed",
-    "note": "Roomies lists the room but no move-in date. Ask about Nov 25. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "Roomies says this listing is no longer available. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1067567",
     "tier": "fixed"
   },
   "roomies-730762": {
-    "status": "listed",
-    "note": "Roomies lists it for men with no move-in date. Price differs between the card and the ad text. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "Roomies says this listing is no longer available. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/730762",
     "tier": "check"
   },
   "roomies-989809": {
-    "status": "listed",
-    "note": "Roomies says move-in ASAP. Gender not stated. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "Roomies says this listing is no longer available. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/989809",
     "tier": "check"
   },
   "fb-vineyard-360w": {
-    "status": "listed",
-    "note": "Facebook Marketplace lists it available now. Checked Nov 20, 2026.",
+    "status": "mismatch",
+    "note": "The Facebook listing says it is a female private room. Checked Nov 23, 2026.",
     "source": "https://www.facebook.com/marketplace/item/1383110371549672/",
     "tier": "check"
   },
@@ -626,7 +627,7 @@ const leadReview = {
   },
   "fb-orem-600n": {
     "status": "listed",
-    "note": "Facebook Marketplace lists it available now for men. Checked Nov 20, 2026.",
+    "note": "Facebook Marketplace lists it available now for men. Checked Nov 23, 2026.",
     "source": "https://www.facebook.com/marketplace/item/2325037144913307/",
     "tier": "check"
   },
@@ -641,26 +642,26 @@ const leadReview = {
     "source": "https://www.facebook.com/marketplace/item/2092376778335480/"
   },
   "fb-freedom-1378": {
-    "status": "listed",
-    "note": "Facebook Marketplace lists it available now. Checked Nov 20, 2026.",
+    "status": "mismatch",
+    "note": "Facebook lists it available Jan 1, 2027, after your move-in date. Checked Nov 23, 2026.",
     "source": "https://www.facebook.com/marketplace/item/1590096378977081/",
     "tier": "check"
   },
   "fb-orem-hombre-650": {
     "status": "listed",
-    "note": "Facebook Marketplace lists it available now for men. Exact address not posted. Checked Nov 20, 2026.",
+    "note": "Facebook Marketplace lists it available now for men. Exact address not posted. Checked Nov 23, 2026.",
     "source": "https://www.facebook.com/marketplace/item/1312081331102362/",
     "tier": "check"
   },
   "fb-provo-700n-56": {
     "status": "listed",
-    "note": "Facebook Marketplace lease sale. Confirm the move-in date. Checked Nov 20, 2026.",
+    "note": "Facebook Marketplace lease sale. Confirm the move-in date. Checked Nov 23, 2026.",
     "source": "https://www.facebook.com/marketplace/item/2822623974789528/",
     "tier": "fixed"
   },
   "fb-af-rockwell": {
     "status": "listed",
-    "note": "Facebook Marketplace listing. Move-in date not shown. Checked Nov 20, 2026.",
+    "note": "Facebook Marketplace listing. Move-in date not shown. Checked Nov 23, 2026.",
     "source": "https://www.facebook.com/marketplace/item/1304960348152266/",
     "tier": "check"
   },
@@ -671,13 +672,13 @@ const leadReview = {
   },
   "cl-provo-1160w": {
     "status": "listed",
-    "note": "Craigslist lists it available now. Checked Nov 20, 2026.",
+    "note": "Craigslist lists it available now. Checked Nov 23, 2026.",
     "source": "https://www.craigslist.org/view/d/provo-private-room-in-basement-apartment/FhvNKkXk8RGUaeGtN3ynxg",
     "tier": "check"
   },
   "cl-vineyard-springwater": {
     "status": "listed",
-    "note": "Craigslist lists it available now. Checked Nov 20, 2026.",
+    "note": "Craigslist lists it available now. Checked Nov 23, 2026.",
     "source": "https://www.craigslist.org/view/d/orem-furnished-private-room-shared/wCeB2cLj8RG-TrnedBqzlQ",
     "tier": "check"
   },
@@ -687,68 +688,88 @@ const leadReview = {
     "source": "https://www.roomies.com/rooms/967731"
   },
   "roomies-1005586": {
-    "status": "mismatch",
-    "note": "Marketed as student housing and no source says non-students can sign, so it is outside your criteria. Listed as Summerwood Student Living (forrentuniversity.com). Hidden by default. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "Roomies says this listing is no longer available. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1005586"
   },
   "roomies-1008518": {
     "status": "listed",
-    "note": "Roomies lists it available now for men. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now for men. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1008518",
     "tier": "check"
   },
   "roomies-923856": {
     "status": "listed",
-    "note": "Roomies lists it available now for men, 4-month minimum. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now for men, 4-month minimum. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/923856",
     "tier": "fixed"
   },
   "ksl-1004598531": {
     "status": "listed",
-    "note": "KSL lists a men's room available now with 1-36 month terms (also on Roomies). Checked Nov 20, 2026.",
+    "note": "KSL lists a men's room available now with 1-36 month terms (also on Roomies). Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/1986-North-3930-West-Lehi-UT-84043/1004598531",
     "tier": "start"
   },
   "roomies-613054": {
     "status": "listed",
-    "note": "Roomies lists it available now with a 6-month lease. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now with a 6-month lease. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/613054",
     "tier": "fixed"
   },
   "roomies-1105206": {
     "status": "listed",
-    "note": "Roomies lists it available now. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1105206",
     "tier": "check"
   },
   "roomies-1100249": {
     "status": "listed",
-    "note": "Roomies lists it available now. Checked Nov 20, 2026.",
+    "note": "Roomies dropped the price to $650 (was $750). Available now. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1100249",
-    "tier": "check"
+    "tier": "check",
+    "price": "$650 listed, bills included"
   },
   "roomies-1075791": {
     "status": "listed",
-    "note": "Roomies lists it available now, 6-48 month terms. Checked Nov 20, 2026.",
+    "note": "Roomies lists it available now, 6-48 month terms. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/1075791",
     "tier": "fixed"
   },
   "ksl-1004679038": {
     "status": "listed",
-    "note": "KSL lists it available now with a 6-12 month lease. Gender not stated. Checked Nov 20, 2026.",
+    "note": "KSL lists it available now with a 6-12 month lease. Gender not stated. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/1167-North-500-West-Lehi-UT-84043/1004679038",
     "tier": "fixed"
   },
   "ksl-1004662689": {
     "status": "listed",
-    "note": "KSL ad title says available immediately; 6-12 month lease. Checked Nov 20, 2026.",
+    "note": "KSL ad title says available immediately; 6-12 month lease. Checked Nov 23, 2026.",
     "source": "https://homes.ksl.com/rent/detail/570-West-2375-North-Lehi-UT-84043/1004662689",
     "tier": "fixed"
   },
   "roomies-368047": {
-    "status": "listed",
-    "note": "Roomies lists it for men with no move-in date. Ask about Nov 25. Checked Nov 20, 2026.",
+    "status": "unavailable",
+    "note": "Roomies says this listing is no longer available. Checked Nov 23, 2026.",
     "source": "https://www.roomies.com/rooms/368047",
     "tier": "fixed"
+  },
+  "roomies-754982": {
+    "status": "listed",
+    "note": "Roomies lists it available now for men with 1-48 month stays. The card says shared room but the ad says private room; ask which. Checked Nov 23, 2026.",
+    "source": "https://www.roomies.com/rooms/754982",
+    "tier": "start",
+    "ask": "Is it a private room or shared?"
+  },
+  "ksl-1004680255": {
+    "status": "listed",
+    "note": "KSL lists two rooms available now, utilities included, 12 month lease, $600 deposit. Gender not stated. Checked Nov 23, 2026.",
+    "source": "https://homes.ksl.com/rent/detail/1763-willowbrook-dr-Provo-UT-84604/1004680255",
+    "tier": "fixed"
+  },
+  "ksl-1004680107": {
+    "status": "listed",
+    "note": "KSL lists three rooms for men from Dec 2, a week after your move-in date. All utilities included. Checked Nov 23, 2026.",
+    "source": "https://homes.ksl.com/rent/detail/1983-700-West-Provo-UT-84604/1004680107",
+    "tier": "backup"
   }
 };

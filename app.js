@@ -8,7 +8,7 @@ const icons = {
  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', star:'<path d="m12 3 2.8 5.7 6.3.9-4.6 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2-4.6-4.4 6.3-.9z"/>',
  download:'<path d="M12 3v12m-4-4 4 4 4-4M4 16v4h16v-4"/>', phone:'<path d="M21 16.5v3a2 2 0 0 1-2.2 2 18 18 0 0 1-16.3-16.3A2 2 0 0 1 4.5 3h3l2 5-2.4 2.4a14 14 0 0 0 6.5 6.5L16 14.5z"/>',
  plus:'<path d="M12 5v14m-7-7h14"/>', close:'<path d="m6 6 12 12M18 6 6 18"/>', copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M5 16H4V4h12v1"/>',
- search:'<circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/>', home:'<path d="m3 11 9-8 9 8m-16-2v11h14V9m-9 11v-6h4v6"/>'
+ chat:'<path d="M4 5h16v11H9l-5 4z"/>', search:'<circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/>', home:'<path d="m3 11 9-8 9 8m-16-2v11h14V9m-9 11v-6h4v6"/>'
 };
 const icon = k => '<svg class="ui" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">'+ icons[k] +'</svg>';
 document.querySelectorAll('[data-icon],[data-symbol]').forEach(el => el.insertAdjacentHTML('afterbegin',icon(el.dataset.icon || el.dataset.symbol)));
@@ -35,7 +35,7 @@ const originalsFirst=new Set(['indian-hills','orem-room','silver-springs','heart
 const defaults=l=>({type:'Studio',status:'To call',notes:'',date:'',rent:'',saved:false,...l});
 const seed=[...original.map(l=>defaults({...l,tier:originalsFirst.has(l.id)?'start':l.type?'check':'backup'})),...catalog.map(defaults)];
 const seedById=new Map(seed.map(l=>[l.id,l]));
-const catalogRevision=4;
+const catalogRevision=5;
 const cityOrder=['Orem','Provo','Vineyard','Lindon','Pleasant Grove','Springville','American Fork','Lehi','Mapleton','Spanish Fork','Saratoga Springs','Other'];
 const tierOf=l=>reviewFor(l)?.tier||l.tier||seedById.get(l.id)?.tier||'check';
 const statuses=['To call','Follow up','Tour booked','Passed'], cities=cityOrder, types=['Studio','1 bedroom','Room','Tattoo shop','Booth / suite','Other'];
@@ -175,6 +175,22 @@ try{
   }
  }
 }catch{toast('Could not read saved leads. Check your browser storage.');}
+// Messages Gavyn copied or texted from the app, newest last, kept per lead so he can reopen the listing and see what he said.
+const sentKey='valley-dial.sent.v1';
+let sent={};
+try{const s=JSON.parse(localStorage.getItem(sentKey)||'{}');if(s&&typeof s==='object'&&!Array.isArray(s))sent=s;}catch{}
+// Saved only on this device (and in backups); nothing personal ships with the app.
+const sentFor=id=>Array.isArray(sent[id])?sent[id]:[];
+const lastSent=id=>{const s=sentFor(id);return s[s.length-1];};
+const sentDate=at=>new Date(at).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+function recordSent(lead,via){
+ const text=$('#message-text').value.trim();if(!lead||!text)return;
+ const list=(Array.isArray(sent[lead.id])?sent[lead.id]:[]).filter(x=>x.text!==text);
+ sent[lead.id]=[...list,{at:new Date().toISOString(),via,text}].slice(-5);
+ try{localStorage.setItem(sentKey,JSON.stringify(sent));}catch{toast('Could not save the message. Check your browser storage.');}
+ const l=leads.find(x=>x.id===lead.id);
+ if(l&&l.status==='To call')commit(leads.map(x=>x===l?{...x,status:'Follow up'}:x));else render();
+}
 function commit(next){try{localStorage.setItem(key,JSON.stringify({catalogRevision,leads:next}));}catch{toast('Could not save. Check your browser storage.');return false;}leads=next;render();return true;}
 function renderCard(lead, mapNumber) {
  const tier=tierOf(lead), tel=(lead.phone||'').replace(/[^\d+]/g,''), url=safeURL(lead.url), name=esc(lead.name);
@@ -193,6 +209,7 @@ function renderCard(lead, mapNumber) {
    <p class="detail">${price}${lead.date?' · '+esc(dateText(lead.date)):''}
     ${url?' · <a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">Listing ↗</a>':''}
    </p>
+   ${(()=>{const s=lastSent(lead.id);return s?'<p class="sent-line"><strong>Messaged '+esc(sentDate(s.at))+'</strong> · '+esc(s.via)+(sentFor(lead.id).length>1?' · '+sentFor(lead.id).length+' messages':'')+' <button type="button" class="link-button" data-action="sent">See what you sent</button></p>':'';})()}
    ${reviewDetails(lead,url)}
    ${lead.context?'<p class="detail">'+esc(lead.context)+'</p>':''}
    ${lead.notes?'<p class="detail notes">'+esc(lead.notes)+'</p>':''}
@@ -221,15 +238,19 @@ function render(){
  $('#tip3').textContent=studios?'Confirm what the shop needs from guest artists.':'Ask about the deposit and lease length.';
  $('#stats').innerHTML=[['home',pool.length,studios?'Studio leads':'Leads'],['phone',pool.filter(l=>l.status==='To call').length,'To contact'],['clock',pool.filter(isFollow).length,'Follow-ups']].map(([i,n,s])=>'<div class="stat"><div class="stat-icon">'+icon(i)+'</div><div><strong>'+n+'</strong><small>'+s+'</small></div></div>').join('');
  const q=$('#search').value.trim().toLowerCase(), c=$('#city').value, t=$('#type').value, priority=$('#priority').value;
- const shown=pool.filter(l=>(view==='all'||(view==='saved'?l.saved:isFollow(l)))&&(!c||c===l.city)&&(!t||t===l.type)&&(!priority||priority===tierOf(l))&&(!q||[l.name,l.city,l.address,l.notes,l.phone,l.context,l.price].some(v=>(v??'').toLowerCase().includes(q))));
+ const inView=l=>view==='all'||(view==='saved'?l.saved:view==='sent'?sentFor(l.id).length>0:isFollow(l));
+ const shown=pool.filter(l=>inView(l)&&(!c||c===l.city)&&(!t||t===l.type)&&(!priority||priority===tierOf(l))&&(!q||[l.name,l.city,l.address,l.notes,l.phone,l.context,l.price].some(v=>(v??'').toLowerCase().includes(q))));
  const ranks=['start','check','fixed','backup'];
  const coreHousing=lead=>!isStudio(lead) && ['Orem','Vineyard'].includes(lead.city);
- shown.sort((a,b)=>(view==='follow'?(a.date||'9999').localeCompare(b.date||'9999'):0)
+ const sentAt=l=>lastSent(l.id)?.at||'';
+ shown.sort((a,b)=>(view==='sent'?sentAt(b).localeCompare(sentAt(a)):0)
+  ||(view==='follow'?(a.date||'9999').localeCompare(b.date||'9999'):0)
+  ||Number(!!sentAt(b))-Number(!!sentAt(a))
   ||ranks.indexOf(tierOf(a))-ranks.indexOf(tierOf(b))
   ||(focusedHousing ? Number(coreHousing(b))-Number(coreHousing(a)) : 0)||cityOrder.indexOf(a.city)-cityOrder.indexOf(b.city));
  $('#results').textContent=shown.length+' '+(shown.length===1?'lead':'leads');
  const mapNumbers=housingMap.update(shown,studios);
- $('#cards').innerHTML=shown.map(lead=>renderCard(lead,mapNumbers.get(lead.id))).join('') || '<div class="empty"><strong>No leads here yet.</strong><p>'+ (q||c||t||priority?'Try changing your filters.':view==='saved'?'Tap the star on a lead to save it here.':view==='follow'?'Log a follow-up or tour to find it here.':'Add a property to start your list.') +'</p></div>';
+ $('#cards').innerHTML=shown.map(lead=>renderCard(lead,mapNumbers.get(lead.id))).join('') || '<div class="empty"><strong>No leads here yet.</strong><p>'+ (q||c||t||priority?'Try changing your filters.':view==='saved'?'Tap the star on a lead to save it here.':view==='follow'?'Log a follow-up or tour to find it here.':view==='sent'?'Messages you copy or text from a lead show up here.':'Add a property to start your list.') +'</p></div>';
 }
 document.querySelectorAll('[data-view]').forEach(el=>el.onclick=()=>{
  view=el.dataset.view;
@@ -266,6 +287,7 @@ $('#cards').onclick=e=>{
  if(b.dataset.action==='photos')showGallery(l,Number(b.dataset.photo));
  else if(b.dataset.action==='log')openEditor(l);
  else if(b.dataset.action==='message')openMessage(l);
+ else if(b.dataset.action==='sent')openSent(l);
  else if(commit(leads.map(x=>x===l?{...x,saved:!x.saved}:x))){
   const row=[...document.querySelectorAll('[data-id]')].find(el=>el.dataset.id===l.id);
   (row?.querySelector('[data-action="star"]')||document.querySelector('[data-view][aria-current]')).focus();
@@ -284,7 +306,7 @@ form.onsubmit=e=>{
 $('#remove').onclick=()=>{if(current&&window.confirm('Delete this lead and its notes?')&&commit(leads.filter(l=>l.id!==current))){editor.close();toast('Lead deleted.');}};
 $('#copy').onclick=async()=>{const phrase=$('#script').textContent.trim().slice(1,-1);try{await navigator.clipboard.writeText(phrase);toast('Opening line copied.');}catch{const range=document.createRange();range.selectNodeContents($('#script'));const selection=getSelection();selection.removeAllRanges();selection.addRange(range);toast('Opening line selected for copying.');}};
 $('#export').onclick=()=>{
- const href=URL.createObjectURL(new Blob([JSON.stringify({version:1,catalogRevision,leads},null,2)],{type:'application/json'}));
+ const href=URL.createObjectURL(new Blob([JSON.stringify({version:1,catalogRevision,leads,sent},null,2)],{type:'application/json'}));
  const a=document.createElement('a');a.href=href;a.download='valley-dial-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(href),1000);
 };
 $('#import').addEventListener('change',async e=>{
@@ -295,7 +317,12 @@ $('#import').addEventListener('change',async e=>{
   // Backups made before this catalog revision keep the leads added since then.
   const restored=validate(data.leads), backupRevision=Number.isInteger(data.catalogRevision)?data.catalogRevision:3, restoredIds=new Set(restored.map(l=>l.id));
   const next=[...restored,...catalog.filter(l=>!restoredIds.has(l.id)&&(l.rev||0)>backupRevision).map(defaults)].map(applyReview);
-  if(window.confirm('Replace the current '+leads.length+' leads with '+next.length+' from this backup?')&&commit(next))toast('Backup restored.');
+  if(window.confirm('Replace the current '+leads.length+' leads with '+next.length+' from this backup?')){
+   // Keep messages from both this device and the backup.
+   if(data.sent&&typeof data.sent==='object'&&!Array.isArray(data.sent))for(const [id,list] of Object.entries(data.sent)){if(!Array.isArray(list))continue;const ok=list.filter(x=>x&&typeof x.text==='string'&&typeof x.at==='string').map(x=>({at:x.at,via:String(x.via||'Copied').slice(0,40),text:x.text.slice(0,3000)}));const mine=Array.isArray(sent[id])?sent[id]:[];sent[id]=[...mine,...ok.filter(x=>!mine.some(m=>m.text===x.text))].sort((a,b)=>a.at.localeCompare(b.at)).slice(-5);}
+   try{localStorage.setItem(sentKey,JSON.stringify(sent));}catch{}
+   if(commit(next))toast('Backup restored.');
+  }
  }catch{toast('That file is not a valid Valley Dial backup.');}
 });
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvent=e;});
@@ -307,7 +334,7 @@ const womenOnly=lead=>{const t=[lead.name,lead.context,reviewFor(lead)?.note].jo
 function messageFor(lead){
  const review=reviewFor(lead)||{}, tier=tierOf(lead), text=[lead.name,lead.context,review.note].join(' ').toLowerCase();
  const address=(lead.address||placeFor(lead).address||'').trim();
- const lines=['Hey, is '+(address?'your room at '+address:'the room you posted')+" still available? I'm looking to move in around the 25th."];
+ const lines=['Hey, is '+(address?'your room at '+address:'the room you posted')+" still available? I'm looking to move in around the 25th."+(review.ask?' '+review.ask:'')];
  lines.push('Would you be down to do a quick FaceTime so I can see the room and the rest of the place? Also curious what the roommates are like.');
  const asks=[];
  if(!womenOnly(lead)&&!/\b(men|men's|male|males|guys?)\b/.test(text))asks.push('Is it open to guys?');
@@ -337,9 +364,22 @@ function openMessage(lead){
 }
 async function copyMessage(){const v=$('#message-text').value;try{await navigator.clipboard.writeText(v);return true;}catch{$('#message-text').select();return false;}}
 $('#message-close').onclick=()=>messageSheet.close();
-$('#message-copy').onclick=async()=>toast(await copyMessage()?'Message copied.':'Message selected. Copy it from the box.');
-$('#message-open').onclick=async()=>{const ok=await copyMessage();const url=safeURL(messageLead?.url);if(url)window.open(url,'_blank','noopener');toast(ok?'Message copied. Paste it into the listing chat.':'Copy the message from the box, then paste it in the listing chat.');};
-$('#message-text-it').onclick=()=>{const tel=(messageLead?.phone||'').replace(/[^\d+]/g,'');if(!tel)return;const sep=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)?'&':'?';location.href='sms:'+tel+sep+'body='+encodeURIComponent($('#message-text').value);};
+$('#message-copy').onclick=async()=>{const ok=await copyMessage();recordSent(messageLead,'Copied');toast((ok?'Message copied.':'Message selected. Copy it from the box.')+' Saved under Messaged.');};
+$('#message-open').onclick=async()=>{const ok=await copyMessage();recordSent(messageLead,sourceName(messageLead?.url)||'Listing');const url=safeURL(messageLead?.url);if(url)window.open(url,'_blank','noopener');toast(ok?'Message copied. Paste it into the listing chat.':'Copy the message from the box, then paste it in the listing chat.');};
+$('#message-text-it').onclick=()=>{const tel=(messageLead?.phone||'').replace(/[^\d+]/g,'');if(!tel)return;recordSent(messageLead,'Text');const sep=/iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)?'&':'?';location.href='sms:'+tel+sep+'body='+encodeURIComponent($('#message-text').value);};
+const sentSheet=$('#sent-sheet'); let sentLead=null;
+function openSent(lead){
+ sentLead=lead;
+ const url=safeURL(lead.url), list=sentFor(lead.id).slice().reverse();
+ $('#sent-title').textContent='What you sent';
+ $('#sent-hint').textContent=lead.name+'. '+(url?'Open the listing'+(sourceName(lead.url)?' on '+sourceName(lead.url):'')+' to check for replies. If you messaged as a guest, replies go to the email or phone you entered.':'Check your texts for a reply.');
+ $('#sent-list').innerHTML=list.map(s=>'<li><p class="sent-meta"><strong>'+esc(sentDate(s.at))+'</strong> · '+esc(s.via)+'</p><p class="sent-text">'+esc(s.text)+'</p>'+(s.reply?'<p class="sent-reply">'+esc(s.reply)+'</p>':'')+'</li>').join('');
+ $('#sent-open').hidden=!url;
+ sentSheet.showModal();
+}
+$('#sent-close').onclick=()=>sentSheet.close();
+$('#sent-open').onclick=()=>{const url=safeURL(sentLead?.url);if(url)window.open(url,'_blank','noopener');};
+$('#sent-copy').onclick=async()=>{const s=lastSent(sentLead?.id);if(!s)return;try{await navigator.clipboard.writeText(s.text);toast('Last message copied.');}catch{toast('Could not copy. Select the text instead.');}};
 $('#install').onclick=async()=>{if(installEvent){const prompt=installEvent;installEvent=null;await prompt.prompt();}else $('#install-help').showModal();};
 $('#close-help').onclick=()=>$('#install-help').close();
 if(matchMedia('(display-mode: standalone)').matches || navigator.standalone)$('#install').hidden=true;

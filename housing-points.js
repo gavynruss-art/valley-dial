@@ -553,6 +553,25 @@ const housingPoints = {
     "approximate": true,
     "areaCheck": true,
     "source": "https://www.roomies.com/rooms/368047"
+  },
+  "roomies-754982": {
+    "lat": 40.3026579660378,
+    "lon": -111.7606406509135,
+    "approximate": true,
+    "areaCheck": true,
+    "source": "https://www.roomies.com/rooms/754982"
+  },
+  "ksl-1004680255": {
+    "lat": 40.257344270327,
+    "lon": -111.674474815755,
+    "source": "https://homes.ksl.com/rent/detail/1763-willowbrook-dr-Provo-UT-84604/1004680255"
+  },
+  "ksl-1004680107": {
+    "lat": 40.260724199133,
+    "lon": -111.67110883066,
+    "approximate": true,
+    "areaCheck": true,
+    "source": "https://homes.ksl.com/rent/detail/1983-700-West-Provo-UT-84604/1004680107"
   }
 };
 const housingCityPoints = {
