@@ -19,7 +19,7 @@ const catalog = [
     "price": "$425 base + fees and utilities",
     "phone": "801-434-8840",
     "url": "https://legendrealestate.managebuilding.com/Resident/public/rentals/18665",
-    "context": "Ask Legend for the full monthly total and Nov 25 availability.",
+    "context": "Ask Legend for the full monthly total and Dec 1 availability.",
     "tier": "check"
   },
   {
@@ -944,7 +944,7 @@ const catalog = [
     "price": "$525 + $60-100 utilities listed",
     "phone": "",
     "url": "https://www.roomies.com/rooms/1067567",
-    "context": "Private room, shared bath · 2-10 month stays · confirm Nov 25 move-in",
+    "context": "Private room, shared bath · 2-10 month stays · confirm Dec 1 move-in",
     "tier": "fixed",
     "rev": 4
   },
@@ -1256,7 +1256,7 @@ const catalog = [
     "price": "$549 listed",
     "phone": "",
     "url": "https://www.roomies.com/rooms/368047",
-    "context": "Men · brand new house · 12 month lease · move-in date not shown, confirm Nov 25",
+    "context": "Men · brand new house · 12 month lease · move-in date not shown, confirm Dec 1",
     "tier": "fixed",
     "rev": 4
   },
@@ -1298,5 +1298,80 @@ const catalog = [
     "context": "Men only · available Dec 2 (one room Dec 16) · no credit check · $500 deposit",
     "tier": "backup",
     "rev": 5
+  },
+  {
+    "type": "Room",
+    "id": "cl-orem-shared-house-475",
+    "name": "Orem shared house room, month-to-month",
+    "city": "Orem",
+    "price": "$475 + $75 flat utilities listed",
+    "phone": "",
+    "url": "https://www.craigslist.org/view/d/vineyard-private-bedroom-shared-house/AHV4O-zn8RGDG7sp6Ffo3w",
+    "context": "Private bedroom in a single-family house · month-to-month · free laundry and parking · between UVU and BYU · apply through TurboTenant",
+    "tier": "start",
+    "rev": 6
+  },
+  {
+    "type": "Room",
+    "id": "roomies-1103243",
+    "name": "American Fork men’s townhome room",
+    "city": "American Fork",
+    "price": "$675 listed, utilities included",
+    "phone": "",
+    "url": "https://www.roomies.com/rooms/1103243",
+    "context": "Men · private room, shared bath · new townhome near FrontRunner · 3 working professionals · available Dec 1",
+    "tier": "check",
+    "rev": 6
+  },
+  {
+    "type": "Room",
+    "id": "ksl-1004673672",
+    "name": "1544 W 250 N room with private bath",
+    "city": "Pleasant Grove",
+    "address": "1544 W 250 N",
+    "price": "$799 listed",
+    "phone": "",
+    "url": "https://homes.ksl.com/rent/detail/1544-West-250-North-Pleasant-Grove-UT-84062/1004673672",
+    "context": "Men 25-40 · private bath · just you and the homeowner · 3 month lease · available now",
+    "tier": "fixed",
+    "rev": 6
+  },
+  {
+    "type": "Room",
+    "id": "ksl-1004630767",
+    "name": "1059 W 360 S townhome room",
+    "city": "American Fork",
+    "address": "1059 W 360 S",
+    "price": "$575 listed + utilities",
+    "phone": "",
+    "url": "https://homes.ksl.com/rent/detail/1059-W-360-S-American-Fork-UT-84003/1004630767",
+    "context": "Private room, shared bath · near AF FrontRunner · 10-24 month lease · available now",
+    "tier": "fixed",
+    "rev": 6
+  },
+  {
+    "type": "Room",
+    "id": "ksl-1004599015",
+    "name": "1960 N 3930 W men’s townhome room",
+    "city": "Lehi",
+    "address": "1960 N 3930 W",
+    "price": "$650 listed + split utilities",
+    "phone": "",
+    "url": "https://homes.ksl.com/rent/detail/1960-North-3930-West-Lehi-UT-84043/1004599015",
+    "context": "Men only · private room, shared bath · lease runs to July 31 · available now",
+    "tier": "fixed",
+    "rev": 6
+  },
+  {
+    "type": "Room",
+    "id": "cl-lehi-1410w",
+    "name": "Lehi room near Thanksgiving Point",
+    "city": "Lehi",
+    "price": "$575 + $75 utilities listed",
+    "phone": "",
+    "url": "https://www.craigslist.org/view/d/lehi-large-private-room-near-tgp/hknBuj_b8RGnA8sXJcatRA",
+    "context": "Private room, bath shared with 1 · 4 people total · 6 month minimum · available Dec 1 · apply through TurboTenant",
+    "tier": "fixed",
+    "rev": 6
   }
 ];

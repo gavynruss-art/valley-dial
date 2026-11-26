@@ -572,6 +572,42 @@ const housingPoints = {
     "approximate": true,
     "areaCheck": true,
     "source": "https://homes.ksl.com/rent/detail/1983-700-West-Provo-UT-84604/1004680107"
+  },
+  "cl-orem-shared-house-475": {
+    "lat": 40.276901,
+    "lon": -111.689888,
+    "approximate": true,
+    "areaCheck": true,
+    "source": "https://www.craigslist.org/view/d/vineyard-private-bedroom-shared-house/AHV4O-zn8RGDG7sp6Ffo3w"
+  },
+  "roomies-1103243": {
+    "lat": 40.3653088430768,
+    "lon": -111.8209960137046,
+    "approximate": true,
+    "areaCheck": true,
+    "source": "https://www.roomies.com/rooms/1103243"
+  },
+  "ksl-1004673672": {
+    "lat": 40.367061,
+    "lon": -111.762797,
+    "source": "https://homes.ksl.com/rent/detail/1544-West-250-North-Pleasant-Grove-UT-84062/1004673672"
+  },
+  "ksl-1004630767": {
+    "lat": 40.36904361786648,
+    "lon": -111.82201456403874,
+    "source": "https://homes.ksl.com/rent/detail/1059-W-360-S-American-Fork-UT-84003/1004630767"
+  },
+  "ksl-1004599015": {
+    "lat": 40.41116,
+    "lon": -111.91235,
+    "source": "https://homes.ksl.com/rent/detail/1960-North-3930-West-Lehi-UT-84043/1004599015"
+  },
+  "cl-lehi-1410w": {
+    "lat": 40.4277,
+    "lon": -111.871918,
+    "approximate": true,
+    "areaCheck": true,
+    "source": "https://www.craigslist.org/view/d/lehi-large-private-room-near-tgp/hknBuj_b8RGnA8sXJcatRA"
   }
 };
 const housingCityPoints = {

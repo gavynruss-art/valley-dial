@@ -14,10 +14,10 @@ const icon = k => '<svg class="ui" aria-hidden="true" viewBox="0 0 24 24" fill="
 document.querySelectorAll('[data-icon],[data-symbol]').forEach(el => el.insertAdjacentHTML('afterbegin',icon(el.dataset.icon || el.dataset.symbol)));
 const original = [
  {id:'indian-hills',name:'Indian Hills private room',city:'Provo',type:'Room',price:'$512 listed all-in',url:'https://www.craigslist.org/view/d/provo-large-bedroom-in-indian-hills/nvibjwxGEaZKXdxXW8WAMf',context:'Furnished · private bath · $300 listed deposit'},
- {id:'orem-room',name:'1104 W 400 S',city:'Orem',type:'Room',phone:'[number removed]',method:'text',price:'$500 listed',url:'https://homes.ksl.com/rent/detail/1104-West-400-South-Orem-UT-84058/1004602321',context:'Text Mike · ask about Wi-Fi and Nov 25'},
+ {id:'orem-room',name:'1104 W 400 S',city:'Orem',type:'Room',phone:'',price:'$500 listed',url:'https://homes.ksl.com/rent/detail/1104-West-400-South-Orem-UT-84058/1004602321',context:'Contact Mike through the KSL listing · ask about Wi-Fi and Dec 1'},
  {id:'silver-springs',name:'Silver Springs private room',city:'Vineyard',type:'Room',price:'$600 listed with utilities',url:'https://www.craigslist.org/view/d/vineyard-single-small-bedroom/pq6wyuvX8RGvxZ7VPxqIjw',context:'Shared bath · check lease end and deposit'},
  {id:'foxwood',name:'Foxwood Apartments private room',city:'Provo',type:'Room',price:'About $531 with listed fees',phone:'801-434-8840',url:'https://legendrealestate.managebuilding.com/Resident/public/rentals/50721',context:'Furnished · ask about non-student eligibility'},
- {id:'near-byu',name:'Furnished room near BYU',city:'Provo',type:'Room',price:'$550 listed before utility fee',url:'https://www.spareroom.com/rooms-for-rent/ut/utah_county/provo/103152077',context:'One-month minimum advertised · ask about Nov 25'},
+ {id:'near-byu',name:'Furnished room near BYU',city:'Provo',type:'Room',price:'$550 listed before utility fee',url:'https://www.spareroom.com/rooms-for-rent/ut/utah_county/provo/103152077',context:'One-month minimum advertised · ask about Dec 1'},
  {id:'uvu-master',name:'Chambery master bedroom',city:'Orem',type:'Room',price:'$550 listed',url:'https://www.collegerentals.com/property/private-mens-master-bedroom-close-to-uvu-chambery-orem-utah/222979082-326574/',context:'Private bathroom · confirm utilities and lease term'},
  {id:'hearts-hands',name:'Hearts & Hands Tattoo',city:'Orem',type:'Tattoo shop',address:'546 S State St',phone:'801-691-1883',url:'https://www.heartsandhandstattoo.com/',context:'Ask about guest spots, piercing, and booth terms'},
  {id:'meraki',name:'Meraki Ink',city:'Orem',type:'Tattoo shop',address:'1015 S State St, Unit C',phone:'385-505-5760',url:'https://booking.page/en/company/page/artbyjakup',context:'Ask if they have space for a guest artist'},
@@ -35,7 +35,7 @@ const originalsFirst=new Set(['indian-hills','orem-room','silver-springs','heart
 const defaults=l=>({type:'Studio',status:'To call',notes:'',date:'',rent:'',saved:false,...l});
 const seed=[...original.map(l=>defaults({...l,tier:originalsFirst.has(l.id)?'start':l.type?'check':'backup'})),...catalog.map(defaults)];
 const seedById=new Map(seed.map(l=>[l.id,l]));
-const catalogRevision=5;
+const catalogRevision=6;
 const cityOrder=['Orem','Provo','Vineyard','Lindon','Pleasant Grove','Springville','American Fork','Lehi','Mapleton','Spanish Fork','Saratoga Springs','Other'];
 const tierOf=l=>reviewFor(l)?.tier||l.tier||seedById.get(l.id)?.tier||'check';
 const statuses=['To call','Follow up','Tour booked','Passed'], cities=cityOrder, types=['Studio','1 bedroom','Room','Tattoo shop','Booth / suite','Other'];
@@ -232,7 +232,7 @@ function render(){
  $('#unavailable-filter').hidden = view !== 'all' || unavailableCount === 0;
  $('#unavailable-label').textContent = 'Show hidden ('+unavailableCount+')';
  const pool = view === 'all' && !$('#show-unavailable').checked ? areaLeads.filter(available) : areaLeads;
- $('#script').textContent=studios?'“Hi! I’m Gavyn, a fine-line and realism artist moving to Utah County. Are you open to guest artists or booth renters around November 25?”':'“Hey, is the room still available? I’m looking to move in around the 25th. Could we do a quick FaceTime so I can see the place? What do utilities run, and how long is the lease?”';
+ $('#script').textContent=studios?'“Hi! I’m Gavyn, a fine-line and realism artist moving to Utah County. Are you open to guest artists or booth renters around December 1?”':'“Hey, is the room still available? I’m looking to move in by Dec 1. Could I come see it this week, or do a quick FaceTime? What do utilities run, and how long is the lease?”';
  $('#tip1').textContent=studios?'Ask about guest dates or an open chair.':'Ask for the earliest move-in date.';
  $('#tip2').textContent=studios?'Ask about day rates, booth rent, or splits.':'Get rent, utilities, and fees.';
  $('#tip3').textContent=studios?'Confirm what the shop needs from guest artists.':'Ask about the deposit and lease length.';
@@ -334,16 +334,19 @@ const womenOnly=lead=>{const t=[lead.name,lead.context,reviewFor(lead)?.note].jo
 function messageFor(lead){
  const review=reviewFor(lead)||{}, tier=tierOf(lead), text=[lead.name,lead.context,review.note].join(' ').toLowerCase();
  const address=(lead.address||placeFor(lead).address||'').trim();
- const lines=['Hey, is '+(address?'your room at '+address:'the room you posted')+" still available? I'm looking to move in around the 25th."+(review.ask?' '+review.ask:'')];
- lines.push('Would you be down to do a quick FaceTime so I can see the room and the rest of the place? Also curious what the roommates are like.');
+ const lines=['Hey, is '+(address?'your room at '+address:'the room you posted')+" still available? I'm looking to move in by Dec 1."+(review.ask?' '+review.ask:'')];
+ lines.push("I'm in town this week, could I come see it in person? If that's hard, a quick FaceTime works too. Also curious what the roommates are like.");
  const asks=[];
  if(!womenOnly(lead)&&!/\b(men|men's|male|males|guys?)\b/.test(text))asks.push('Is it open to guys?');
  if(/student|byu[- ]approved|byu contract|contract(ed)? housing|eligib/.test(text)||(/\bcontract\b/.test(text)&&!/no contract|month[- ]to[- ]month/.test(text))||/managebuilding/.test(lead.url||''))asks.push("I'm not a student, is that ok?");
  if(/takeover|lease sale|selling|transfer/.test(text))asks.push('When does the lease end?');
  else if(tier!=='start')asks.push("How long is the lease? I'm just not trying to get locked into anything too long.");
- const cost=lead.price?'what do utilities usually run?':"what's rent with utilities?";
- asks.push(asks.length?'And '+cost:cost[0].toUpperCase()+cost.slice(1));
- lines.push(asks.join(' '));
+ // Skip the utilities question when the listing already says what utilities cost or that they're included.
+ if(!/utilit|bills|all-inclusive/i.test(lead.price||'')){
+  const cost=lead.price?'what do utilities usually run?':"what's rent with utilities?";
+  asks.push(asks.length?'And '+cost:cost[0].toUpperCase()+cost.slice(1));
+ }
+ if(asks.length)lines.push(asks.join(' '));
  lines.push('Thanks, Gavyn');
  return lines.join('\n\n');
 }

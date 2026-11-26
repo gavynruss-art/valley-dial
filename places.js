@@ -1279,5 +1279,68 @@ const places = {
         "https://img.ksl.com/mx/mplace-rent.ksl.com/m5207244-l1004680107-1033522305.jpg"
       ]
     ]
+  },
+  "cl-orem-shared-house-475": {
+    "address": "",
+    "source": "https://www.craigslist.org/view/d/vineyard-private-bedroom-shared-house/AHV4O-zn8RGDG7sp6Ffo3w",
+    "photos": [
+      [
+        "Listing photo",
+        "https://images.craigslist.org/00w0w_76Kh6zQP21H_0x20iB_600x450.jpg"
+      ]
+    ],
+    "areaOnly": true
+  },
+  "roomies-1103243": {
+    "address": "",
+    "source": "https://www.roomies.com/rooms/1103243",
+    "photos": [
+      [
+        "Listing photo",
+        "https://www.roomies.com/og-image/16da25dca636ccf7f8fe6f06fad704c0.jpeg"
+      ]
+    ],
+    "areaOnly": true
+  },
+  "ksl-1004673672": {
+    "address": "1544 W 250 N",
+    "source": "https://homes.ksl.com/rent/detail/1544-West-250-North-Pleasant-Grove-UT-84062/1004673672",
+    "photos": [
+      [
+        "Listing photo",
+        "https://img.ksl.com/mx/mplace-rent.ksl.com/m467753-l1004673672-1033385724.jpg"
+      ]
+    ]
+  },
+  "ksl-1004630767": {
+    "address": "1059 W 360 S",
+    "source": "https://homes.ksl.com/rent/detail/1059-W-360-S-American-Fork-UT-84003/1004630767",
+    "photos": [
+      [
+        "Listing photo",
+        "https://img.ksl.com/mx/mplace-rent.ksl.com/m3881235-l1004630767-1032580434.jpg"
+      ]
+    ]
+  },
+  "ksl-1004599015": {
+    "address": "1960 N 3930 W",
+    "source": "https://homes.ksl.com/rent/detail/1960-North-3930-West-Lehi-UT-84043/1004599015",
+    "photos": [
+      [
+        "Listing photo",
+        "https://img.ksl.com/mx/mplace-rent.ksl.com/m3657548-l1004599015-1032049080.jpg"
+      ]
+    ]
+  },
+  "cl-lehi-1410w": {
+    "address": "",
+    "source": "https://www.craigslist.org/view/d/lehi-large-private-room-near-tgp/hknBuj_b8RGnA8sXJcatRA",
+    "photos": [
+      [
+        "Listing photo",
+        "https://images.craigslist.org/00q0q_aH42cw2lImo_0cU09G_600x450.jpg"
+      ]
+    ],
+    "areaOnly": true
   }
 };
