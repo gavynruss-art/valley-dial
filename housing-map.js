@@ -19,6 +19,18 @@ const housingMap = (() => {
   return city ? {lat:city[0], lon:city[1], approximate:true} : null;
  }
 
+ // UVU main campus, Orem (40°16′42″N 111°42′51″W).
+ const UVU = [40.2783, -111.7142], UVU_RADIUS_MILES = 3.5;
+ // Straight-line miles to UVU, or null when the only pin is a city center.
+ // areaCheck: listing-level pin (fuzzed a block or two by the site), close enough for a distance.
+ function milesToUVU(lead) {
+  const point = pointFor(lead);
+  if (!point || (point.approximate && !point.areaCheck)) return null;
+  const rad = x => x * Math.PI / 180, dLat = rad(point.lat - UVU[0]), dLon = rad(point.lon - UVU[1]);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(UVU[0])) * Math.cos(rad(point.lat)) * Math.sin(dLon / 2) ** 2;
+  return {miles: 2 * 3958.8 * Math.asin(Math.sqrt(h)), approximate: !!point.approximate};
+ }
+
  function popupFor(group) {
   const content = document.createElement('div');
   content.className = 'housing-map-popup';
@@ -98,14 +110,14 @@ const housingMap = (() => {
  });
 
  return {
+  // Gavyn only wants housing around UVU (Nov 25): within 3.5 straight-line miles of the main campus.
   inPreferredArea(lead) {
-   if (['Orem','Vineyard','Lindon','Pleasant Grove','American Fork','Lehi','Saratoga Springs'].includes(lead.city)) return true;
-   if (lead.city !== 'Provo') return false;
-   // Approximate east–west cutoff near Lakeview South, not a neighborhood boundary.
-   const point = pointFor(lead);
-   // areaCheck: listing-level pin (fuzzed a block or two by the site), close enough for this cutoff.
-   return !!point && (!point.approximate || point.areaCheck) && point.lat >= 40.2415;
+   const away = milesToUVU(lead);
+   if (away) return away.miles <= UVU_RADIUS_MILES;
+   // No usable pin: Orem and Vineyard both border UVU, so keep them; drop other cities.
+   return ['Orem','Vineyard'].includes(lead.city);
   },
+  milesToUVU,
   update(shown, hide) {
    panel.hidden = hide;
    entries = [];

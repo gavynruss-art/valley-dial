@@ -202,7 +202,7 @@ function renderCard(lead, mapNumber) {
   ${photoPreview(lead)}
   <div class="card-info">
    <h3>${mapNumber?`<button type="button" class="housing-map-number" data-map-number="${mapNumber}" aria-label="Show ${name} on the map">${mapNumber}</button>`:''}${name}</h3>
-   <p class="meta">${esc(lead.city)} · ${esc(lead.type)}${lead.address?' · '+esc(lead.address):''}
+   <p class="meta">${esc(lead.city)} · ${esc(lead.type)}${lead.address?' · '+esc(lead.address):''}${(()=>{if(isStudio(lead))return '';const d=typeof housingMap.milesToUVU==='function'?housingMap.milesToUVU(lead):null;return d?' · '+(d.approximate?'about ':'')+d.miles.toFixed(1)+' mi to UVU':'';})()}
     <span class="pill ${isFollow(lead)?'follow':''}">${esc(lead.status)}</span>
     <span class="pill tier ${tier}">${(isStudio(lead)?priorityLabels:housingTierLabels)[tier]}</span>
    </p>
